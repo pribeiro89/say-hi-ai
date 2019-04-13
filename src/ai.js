@@ -1,61 +1,38 @@
-// Copyright 2018 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 
-import App from './App.vue';
 
 import "@babel/polyfill";
 import * as mobilenetModule from '@tensorflow-models/mobilenet';
 import * as tf from '@tensorflow/tfjs';
 import * as knnClassifier from '@tensorflow-models/knn-classifier';
+import classData from './data/classes.json';
 
 // Number of classes to classify
-const CLASSES = [
-  'clubmate-cola',
-  'clubmate',
-  'sparkling-water',
-  'santal',
-  'lays'
-];
+const CLASSES = classData.classes;
+
 // Webcam Image size. Must be 227. 
 const IMAGE_SIZE = 227;
 // K value for KNN
 const TOPK = 10;
 
-Vue.component('app', App)
 
-var app = new Vue({ 
-  el: '#app'
-});
-
-class Main {
+export default class Main {
   constructor() {
     // Initiate variables
     this.numClasses = CLASSES.length;
     this.infoTexts = [];
     this.training = -1; // -1 when no class is being trained
-    this.videoPlaying = false;
+    //this.videoPlaying = false;
 
     // Initiate deeplearn.js math and knn classifier objects
     this.bindPage();
 
     // Create video element that will contain the webcam image
-    this.video = document.createElement('video');
-    this.video.setAttribute('autoplay', '');
-    this.video.setAttribute('playsinline', '');
+    // this.video = document.createElement('video');
+    // this.video.setAttribute('autoplay', '');
+    // this.video.setAttribute('playsinline', '');
 
     // Add video element to DOM
-    document.body.appendChild(this.video);
+    // document.body.appendChild(this.video);
 
     // Create training buttons and info texts    
     for (let i = 0; i < this.numClasses; i++) {
@@ -81,15 +58,15 @@ class Main {
 
 
     // Setup webcam
-    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-      .then((stream) => {
-        this.video.srcObject = stream;
-        this.video.width = IMAGE_SIZE;
-        this.video.height = IMAGE_SIZE;
-
-        this.video.addEventListener('playing', () => this.videoPlaying = true);
-        this.video.addEventListener('paused', () => this.videoPlaying = false);
-      })
+    // navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    //   .then((stream) => {
+    //     this.video.srcObject = stream;
+    //     this.video.width = IMAGE_SIZE;
+    //     this.video.height = IMAGE_SIZE;
+    //
+    //     this.video.addEventListener('playing', () => this.videoPlaying = true);
+    //     this.video.addEventListener('paused', () => this.videoPlaying = false);
+    //   })
   }
 
   async bindPage() {
@@ -165,4 +142,5 @@ class Main {
   }
 }
 
-window.addEventListener('load', () => new Main());
+//window.addEventListener('load', () => new Main());
+
