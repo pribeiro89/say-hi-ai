@@ -13,6 +13,7 @@
     "@tensorflow-models/mobilenet": "^0.2.2",
     "@tensorflow/tfjs": "^0.13.5",
     "axios": "^0.18.0",
+    "buefy": "^0.7.4",
     "lodash": "^4.17.11",
     "vue": "^2.5.22",
     "vuex": "^3.1.0"

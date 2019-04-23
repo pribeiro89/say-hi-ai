@@ -4,18 +4,19 @@
         playsinline
         :width="imageSize"
         :height="imageSize"
-        v-on:playing="videoPlaying = true"
-        v-on:pause="videoPlaying = false"
+        v-on:playing="setVideoPlaying({videoPlaying: true})"
+        v-on:pause="setVideoPlaying({videoPlaying: false})"
         controls
     ></video>
 </template>
 
 <script>
+    import Vuex from 'vuex'
+
     export default {
         name: "videoComponent",
         data() {
             return {
-                videoPlaying: false,
                 imageSize: 500,
             }
         },
@@ -32,6 +33,16 @@
                     console.log(err)
                 })
         },
+        methods: {
+            ...Vuex.mapMutations([
+                'setVideoPlaying',
+            ])
+        },
+        computed: {
+            ...Vuex.mapState({
+                videoPlaying: 'videoPlaying',
+            })
+        }
     }
 </script>
 

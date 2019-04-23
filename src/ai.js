@@ -10,21 +10,21 @@ import classData from './data/classes.json';
 const CLASSES = classData.classes;
 
 // Webcam Image size. Must be 227. 
-const IMAGE_SIZE = 227;
+// const IMAGE_SIZE = 227;
 // K value for KNN
 const TOPK = 10;
 
 
 export default class Main {
-  constructor() {
+  constructor(numClasses) {
     // Initiate variables
-    this.numClasses = CLASSES.length;
+    this.numClasses = numClasses;
     this.infoTexts = [];
     this.training = -1; // -1 when no class is being trained
     //this.videoPlaying = false;
 
     // Initiate deeplearn.js math and knn classifier objects
-    this.bindPage();
+    //this.bindPage();
 
     // Create video element that will contain the webcam image
     // this.video = document.createElement('video');
@@ -35,26 +35,26 @@ export default class Main {
     // document.body.appendChild(this.video);
 
     // Create training buttons and info texts    
-    for (let i = 0; i < this.numClasses; i++) {
-      const div = document.createElement('div');
-      document.body.appendChild(div);
-      div.style.marginBottom = '10px';
-
-      // Create training button
-      const button = document.createElement('button')
-      button.innerText = "Train " + (CLASSES[i]).toUpperCase();
-      div.appendChild(button);
-
-      // Listen for mouse events when clicking the button
-      button.addEventListener('mousedown', () => this.training = i);
-      button.addEventListener('mouseup', () => this.training = -1);
-
-      // Create info text
-      const infoText = document.createElement('span')
-      infoText.innerText = " No examples added";
-      div.appendChild(infoText);
-      this.infoTexts.push(infoText);
-    }
+    // for (let i = 0; i < this.numClasses; i++) {
+    //   // const div = document.createElement('div');
+    //   // document.body.appendChild(div);
+    //   // div.style.marginBottom = '10px';
+    //
+    //   // Create training button
+    //   const button = document.createElement('button')
+    //   button.innerText = "Train " + (CLASSES[i]).toUpperCase();
+    //   div.appendChild(button);
+    //
+    //   // Listen for mouse events when clicking the button
+    //   button.addEventListener('mousedown', () => this.training = i);
+    //   button.addEventListener('mouseup', () => this.training = -1);
+    //
+    //   // Create info text
+    //   const infoText = document.createElement('span')
+    //   infoText.innerText = " No examples added";
+    //   div.appendChild(infoText);
+    //   this.infoTexts.push(infoText);
+    // }
 
 
     // Setup webcam
@@ -80,12 +80,12 @@ export default class Main {
     if (this.timer) {
       this.stop();
     }
-    this.video.play();
+    // this.video.play();
     this.timer = requestAnimationFrame(this.animate.bind(this));
   }
 
   stop() {
-    this.video.pause();
+    //this.video.pause();
     cancelAnimationFrame(this.timer);
   }
 
